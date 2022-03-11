@@ -1,7 +1,13 @@
-import '../styles/globals.css'
+import "../styles/globals.css"
+import "bootswatch/dist/cerulean/bootstrap.min.css"
+import { AppContextProvider } from "@@/components/AppContext"
 
-function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+const App = ({ Component, pageProps, ...otherProps }) => {
+  return (
+    <AppContextProvider>
+      <Component {...pageProps} {...otherProps} />
+    </AppContextProvider>
+  )
 }
 
-export default MyApp
+export default App
