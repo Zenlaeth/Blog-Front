@@ -1,32 +1,55 @@
 import { Formik } from "formik"
 import Button from "./Button"
 import * as yup from "yup"
-import { useState } from "react"
+import { useCallback, useState, useContext } from "react"
+import FormField from "./FormField"
+import { makeClient } from "../src/services/makeClient"
+import { AppContext } from "./AppContext"
 
 const initialValues = {
   email: "",
   password: "",
 }
 
-// const validationSchema = yup.object().shape({
-//   email: yup.string().required().label("email"),
-//   password: yup.string().required().label("password"),
-// })
+const validationSchema = yup.object().shape({
+  email: yup.string().email().required().label("email"),
+  password: yup.string().min(8).required().label("password"),
+})
 
-const Form = () => {
-  const [user, setUser] = useState(initialValues)
+const RegisterForm = () => {
+  const [error, setError] = useState()
+  const { register } = useContext(AppContext)
+  const handleFormSubmit = useCallback(async ({ email, password }) => {
+    setError(null)
 
-  const onValueChange = (e) => {
-    setUser({ ...user, [e.target.email]: e.target.password })
-    // eslint-disable-next-line no-console
-    console.log(user)
-  }
+    try {
+      const {
+        data: { jwt },
+      } = await makeClient().post("/register", { email, password })
+
+      if (!jwt) {
+        throw new Error("Missing JWT.")
+      }
+
+      register(jwt)
+    } catch (err) {
+      const { response: { data } = {} } = err
+
+      if (data.error) {
+        setError("Oops, something went wrong.")
+
+        return
+      }
+
+      setError("Oops, something went wrong.")
+    }
+  }, [])
 
   return (
     <Formik
-      // onSubmit={handleFormSubmit}
+      validationSchema={validationSchema}
       initialValues={initialValues}
-      // validationSchema={validationSchema}
+      onSubmit={handleFormSubmit}
     >
       {({ handleSubmit, isValid, isSubmitting, errors }) =>
         // eslint-disable-next-line no-console
@@ -36,31 +59,13 @@ const Form = () => {
               <div className="form-group">
                 <form
                   className="grid grid-cols-1 gap-y-6"
-                  noValidate
                   onSubmit={handleSubmit}
                 >
-                  <div className="form-group">
-                    <label>Email address</label>
-                    <input
-                      type="email"
-                      className="form-control"
-                      name="email"
-                      placeholder="Enter email"
-                      value={user.email}
-                      onChange={(e) => onValueChange(e)}
-                    />
-                    <label>Password</label>
-                    <input
-                      type="password"
-                      className="form-control"
-                      name="password"
-                      placeholder="Enter password"
-                      value={user.password}
-                      onChange={(e) => onValueChange(e)}
-                    />
-                  </div>
+                  {error ? <p>{error}</p> : null}
+                  <FormField name="email" type="email" label="E-mail" />
+                  <FormField name="password" type="password" label="Password" />
                   <Button type="submit" disabled={!isValid || isSubmitting}>
-                    Submit
+                    Register
                   </Button>
                 </form>
               </div>
@@ -72,4 +77,4 @@ const Form = () => {
   )
 }
 
-export default Form
+export default RegisterForm

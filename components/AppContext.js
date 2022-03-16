@@ -12,10 +12,16 @@ export const AppContextProvider = (props) => {
     localStorage.setItem("session_jwt", jwt)
   }, [])
 
+  const register = useCallback((jwt) => {
+    localStorage.setItem("session_jwt", jwt)
+  }, [])
+
   const logout = useCallback(() => {
     localStorage.removeItem("session_jwt")
     setJWT(null)
   })
 
-  return <AppContext.Provider {...props} value={{ login, logout, jwt }} />
+  return (
+    <AppContext.Provider {...props} value={{ login, logout, register, jwt }} />
+  )
 }
