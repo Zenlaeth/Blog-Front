@@ -3,3 +3,17 @@ body,
 #__next {
   @apply min-h-full;
 }
+
+.posts {
+  text-decoration-color: black;
+  align-content: flex-start;
+}
+
+.post {
+  text-decoration-color: black;
+  align-content: flex-start;
+}
+
+.post .h1 .a {
+  text-decoration: none;
+}

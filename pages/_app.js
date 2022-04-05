@@ -1,5 +1,5 @@
 import "../styles/globals.css"
-import "bootswatch/dist/cerulean/bootstrap.min.css"
+import "bootswatch/dist/cosmo/bootstrap.min.css"
 import { AppContextProvider } from "@@/components/AppContext"
 
 const App = ({ Component, pageProps, ...otherProps }) => {
