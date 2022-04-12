@@ -33,6 +33,9 @@ const Navbar = () => {
               <Link className="nav-item" href="/register">
                 <a className="nav-link">Register</a>
               </Link>
+              <Link className="nav-item" href="/newPost">
+                <a className="nav-link">New post</a>
+              </Link>
               <li className="nav-item" href="#">
                 <Button onClick={logout}>Log out</Button>
               </li>

@@ -5,6 +5,7 @@ import { useCallback, useState, useContext } from "react"
 import FormField from "./FormField"
 import { makeClient } from "../src/services/makeClient"
 import { AppContext } from "./AppContext"
+import { useRouter } from "next/router"
 
 const initialValues = {
   email: "",
@@ -17,6 +18,7 @@ const validationSchema = yup.object().shape({
 })
 
 const LoginForm = () => {
+  const router = useRouter()
   const [error, setError] = useState()
   const { login } = useContext(AppContext)
   const handleFormSubmit = useCallback(async ({ email, password }) => {
@@ -31,7 +33,20 @@ const LoginForm = () => {
         throw new Error("Missing JWT.")
       }
 
-      login(jwt)
+      function parseJwt(token) {
+        if (!token) {
+          return
+        }
+        const base64Url = token.split(".")[1]
+        const base64 = base64Url.replace("-", "+").replace("_", "/")
+        return JSON.parse(window.atob(base64))
+      }
+
+      const decodeJwt = parseJwt(jwt)
+
+      login(jwt, decodeJwt.payload.userId)
+
+      router.push("/")
     } catch (err) {
       const { response: { data } = {} } = err
 

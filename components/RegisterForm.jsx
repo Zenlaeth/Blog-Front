@@ -5,45 +5,63 @@ import { useCallback, useState, useContext } from "react"
 import FormField from "./FormField"
 import { makeClient } from "../src/services/makeClient"
 import { AppContext } from "./AppContext"
+import { useRouter } from "next/router"
 
 const initialValues = {
   email: "",
+  firstName: "",
+  lastName: "",
   password: "",
 }
 
 const validationSchema = yup.object().shape({
   email: yup.string().email().required().label("email"),
+  firstName: yup
+    .string()
+    .matches(/^[aA-zZ\s]+$/, "Please enter valid name")
+    .max(40)
+    .required()
+    .label("firstName"),
+  lastName: yup
+    .string()
+    .matches(/^[aA-zZ\s]+$/, "Please enter valid name")
+    .max(40)
+    .required()
+    .label("lastName"),
   password: yup.string().min(8).required().label("password"),
 })
 
 const RegisterForm = () => {
+  const router = useRouter()
   const [error, setError] = useState()
   const { register } = useContext(AppContext)
-  const handleFormSubmit = useCallback(async ({ email, password }) => {
-    setError(null)
+  const handleFormSubmit = useCallback(
+    async ({ email, firstName, lastName, password }) => {
+      setError(null)
 
-    try {
-      const {
-        data: { jwt },
-      } = await makeClient().post("/register", { email, password })
+      try {
+        await makeClient().post("/register", {
+          email,
+          firstName,
+          lastName,
+          password,
+        })
 
-      if (!jwt) {
-        throw new Error("Missing JWT.")
-      }
+        router.push("/login")
+      } catch (err) {
+        const { response: { data } = {} } = err
 
-      register(jwt)
-    } catch (err) {
-      const { response: { data } = {} } = err
+        if (data.error) {
+          setError("Oops, something went wrong.")
 
-      if (data.error) {
+          return
+        }
+
         setError("Oops, something went wrong.")
-
-        return
       }
-
-      setError("Oops, something went wrong.")
-    }
-  }, [])
+    },
+    []
+  )
 
   return (
     <Formik
@@ -63,6 +81,8 @@ const RegisterForm = () => {
                 >
                   {error ? <p>{error}</p> : null}
                   <FormField name="email" type="email" label="E-mail" />
+                  <FormField name="firstName" type="text" label="First name" />
+                  <FormField name="lastName" type="text" label="Last name" />
                   <FormField name="password" type="password" label="Password" />
                   <Button type="submit" disabled={!isValid || isSubmitting}>
                     Register
