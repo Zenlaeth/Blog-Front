@@ -1,5 +1,4 @@
 import useApi from "@@/components/useApi"
-import { Route, useParams } from "react-router-dom"
 import { useRouter } from "next/router"
 import Moment from "react-moment"
 import Link from "next/link"
@@ -24,6 +23,15 @@ const PostDetails = () => {
       <h2>
         <b>{post.title}</b>
       </h2>
+      <p>
+        <small>
+          By{" "}
+          <b>
+            {user.firstName} {user.lastName}
+          </b>
+          , on <Moment format="DD/MM/YYYY HH:mm">{post.createdAt}</Moment>
+        </small>
+      </p>
       {idUserLogged == post.user_id ? (
         <h3>
           <Link
@@ -36,16 +44,6 @@ const PostDetails = () => {
           <Button onClick={deletePost}>Delete</Button>
         </h3>
       ) : null}
-
-      <p>
-        <small>
-          By{" "}
-          <b>
-            {user.firstName} {user.lastName}
-          </b>
-          , on <Moment format="DD/MM/YYYY HH:mm">{post.createdAt}</Moment>
-        </small>
-      </p>
       <p>{post.content}</p>
     </div>
   )

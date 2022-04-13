@@ -4,7 +4,12 @@ import { AppContext } from "./AppContext"
 import Button from "./Button"
 
 const Navbar = () => {
-  const { logout } = useContext(AppContext)
+  const { logout, idUserLogged } = useContext(AppContext)
+
+  const deleteAccount = async () => {
+    await makeClient().delete("/user/" + idUserLogged)
+    router.push("/login")
+  }
 
   return (
     <div>
@@ -33,12 +38,19 @@ const Navbar = () => {
               <Link className="nav-item" href="/register">
                 <a className="nav-link">Register</a>
               </Link>
-              <Link className="nav-item" href="/newPost">
-                <a className="nav-link">New post</a>
-              </Link>
-              <li className="nav-item" href="#">
-                <Button onClick={logout}>Log out</Button>
-              </li>
+              {idUserLogged ? (
+                <>
+                  <Link className="nav-item" href="/newPost">
+                    <a className="nav-link">New post</a>
+                  </Link>
+                  <Link className="nav-item" href="/edit-profile">
+                    <a className="nav-link">Edit profile</a>
+                  </Link>
+                  <li className="nav-item" href="#">
+                    <Button onClick={logout}>Log out</Button>
+                  </li>
+                </>
+              ) : null}
             </ul>
           </div>
         </div>

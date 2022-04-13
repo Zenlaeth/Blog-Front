@@ -1,10 +1,11 @@
 import Navbar from "@@/components/Navbar"
+import PostEditForm from "@@/components/PostEditForm"
 
 const Edit = () => {
   return (
     <div>
       <Navbar />
-      <p>1</p>
+      <PostEditForm />
     </div>
   )
 }
