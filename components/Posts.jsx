@@ -16,7 +16,7 @@ const Posts = () => {
         ? Array.from(posts).map((post) => {
             // const [errU, user] = useApi([null, {}], "get", "/users/" + post.user_id)
             return (
-              <div>
+              <div key={post.id}>
                 <h1>
                   <Link
                     className="nav-item"

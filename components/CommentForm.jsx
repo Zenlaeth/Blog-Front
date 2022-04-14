@@ -45,6 +45,7 @@ const CommentForm = () => {
     }
     // router.reload(window.location.pathname)
   }, [])
+
   return (
     <div className="comment-form">
       <h4>

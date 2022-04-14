@@ -16,7 +16,10 @@ module.exports = {
   },
   rules: {
     indent: "off",
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": [
+      "error",
+      process.platform === "win32" ? "windows" : "unix",
+    ],
     quotes: [
       "error",
       "double",

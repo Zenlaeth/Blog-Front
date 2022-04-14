@@ -4,7 +4,7 @@ import { useRouter } from "next/router"
 import Button from "./Button"
 import { makeClient } from "../src/services/makeClient"
 import { AppContext } from "./AppContext"
-import { useCallback, useState, useContext } from "react"
+import { useContext } from "react"
 
 const Comments = () => {
   const router = useRouter()
@@ -35,7 +35,7 @@ const Comments = () => {
               // )
 
               return (
-                <div>
+                <div key={comment.id}>
                   <h4>
                     <b>
                       commented on{" "}
