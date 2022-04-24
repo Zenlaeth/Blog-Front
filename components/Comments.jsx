@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import Button from "./Button"
 import { makeClient } from "../src/services/makeClient"
 import { AppContext } from "./AppContext"
+import Link from "next/link"
 import { useContext } from "react"
 
 const Comments = () => {
@@ -46,6 +47,11 @@ const Comments = () => {
                     {idUserLogged == comment.user_id ||
                     idUserLogged == post.user_id ? (
                       <Button onClick={deleteComment}>Delete</Button>
+                    ) : null}
+                    {idUserLogged == comment.user_id ? (
+                      <Link href={`/comments/edit/` + comment.id} key={post.id}>
+                        <a>Edit post</a>
+                      </Link>
                     ) : null}
                   </h4>
                   <p>{comment.content}</p>

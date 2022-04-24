@@ -1,4 +1,4 @@
-import { Formik } from "formik"
+import { Field, Formik } from "formik"
 import Button from "./Button"
 import * as yup from "yup"
 import { useCallback, useState, useContext } from "react"
@@ -10,6 +10,7 @@ import { useRouter } from "next/router"
 const initialValues = {
   title: "",
   content: "",
+  isPublished: false,
 }
 
 const validationSchema = yup.object().shape({
@@ -29,7 +30,7 @@ const PostForm = () => {
         await makeClient().post("/posts", {
           title,
           content,
-          isPublished: 1,
+          isPublished,
           user_id: idUserLogged,
         })
 
@@ -58,7 +59,7 @@ const PostForm = () => {
       {({ handleSubmit, isValid, isSubmitting, errors }) =>
         // eslint-disable-next-line no-console
         console.error(errors) || (
-          <div>
+          <div className="card mb-3">
             <div className="b py-16 bg-gray-50 px-4 sm:px-6 h-screen w-screen flex justify-center items-center">
               <div className="form-group">
                 <form
@@ -66,14 +67,20 @@ const PostForm = () => {
                   onSubmit={handleSubmit}
                 >
                   {error ? <p>{error}</p> : null}
-                  <FormField name="title" type="text" label="Title" />
-                  <FormField name="content" type="text" label="Content" />
-                  {/* <Form.Check
-                    disabled
-                    type={type}
-                    label={`disabled ${type}`}
-                    id={`disabled-default-${type}`}
-                  /> */}
+                  <div className="card-body">
+                    <FormField name="title" type="text" label="Title" />
+                    <FormField name="content" type="text" label="Content" />
+                    <div className="form-group form-check">
+                      <Field
+                        name="isPublished"
+                        type="checkbox"
+                        label="Publish"
+                      />
+                      <label className="form-check-label">
+                        Publish the post
+                      </label>
+                    </div>
+                  </div>
                   <Button type="submit" disabled={!isValid || isSubmitting}>
                     Create
                   </Button>

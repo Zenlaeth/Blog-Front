@@ -12,7 +12,7 @@ const PostDetails = () => {
   const postId = router.query.id
   const { idUserLogged } = useContext(AppContext)
   const [errP, post] = useApi([null, {}], "get", "/posts/" + postId)
-  const [errU, user] = useApi([null, {}], "get", "/users/" + post.user_id)
+  const [errU, user] = useApi([null, {}], "get", "public/users/" + post.user_id)
   const deletePost = async () => {
     await makeClient().delete("/posts/" + postId)
     router.push("/")
@@ -34,11 +34,7 @@ const PostDetails = () => {
       </p>
       {idUserLogged == post.user_id ? (
         <h3>
-          <Link
-            className="nav-item"
-            href={`/posts/edit/` + post.id}
-            key={post.id}
-          >
+          <Link href={`/posts/edit/` + post.id} key={post.id}>
             <a>Edit post</a>
           </Link>
           <Button onClick={deletePost}>Delete</Button>

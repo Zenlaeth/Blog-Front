@@ -19,9 +19,6 @@ const validationSchema = yup.object().shape({
 const PostEditForm = () => {
   const router = useRouter()
   const urlPost = "/posts/" + router.query.id
-
-  // eslint-disable-next-line no-console
-  console.log(urlPost)
   const [error, setError] = useState()
   const handleFormSubmit = useCallback(async ({ title, content }) => {
     setError(null)

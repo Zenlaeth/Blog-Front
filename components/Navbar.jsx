@@ -2,14 +2,11 @@ import Link from "next/link"
 import { useContext } from "react"
 import { AppContext } from "./AppContext"
 import Button from "./Button"
+import useApi from "@@/components/useApi"
 
 const Navbar = () => {
   const { logout, idUserLogged } = useContext(AppContext)
-
-  const deleteAccount = async () => {
-    await makeClient().delete("/user/" + idUserLogged)
-    router.push("/login")
-  }
+  const [errU, user] = useApi([null, {}], "get", "/users/" + idUserLogged)
 
   return (
     <div>
@@ -40,9 +37,13 @@ const Navbar = () => {
               </Link>
               {idUserLogged ? (
                 <>
-                  <Link className="nav-item" href="/newPost">
-                    <a className="nav-link">New post</a>
-                  </Link>
+                  {user.role_id == 2 ? (
+                    <>
+                      <Link className="nav-item" href="/newPost">
+                        <a className="nav-link">New post</a>
+                      </Link>
+                    </>
+                  ) : null}
                   <Link className="nav-item" href="/edit-profile">
                     <a className="nav-link">Edit profile</a>
                   </Link>

@@ -33,12 +33,14 @@ const LoginForm = () => {
         throw new Error("Missing JWT.")
       }
 
-      function parseJwt(token) {
+      const parseJwt = (token) => {
         if (!token) {
           return
         }
+
         const base64Url = token.split(".")[1]
         const base64 = base64Url.replace("-", "+").replace("_", "/")
+
         return JSON.parse(window.atob(base64))
       }
 
@@ -69,21 +71,19 @@ const LoginForm = () => {
       {({ handleSubmit, isValid, isSubmitting, errors }) =>
         // eslint-disable-next-line no-console
         console.error(errors) || (
-          <div>
-            <div className="b py-16 bg-gray-50 px-4 sm:px-6 h-screen w-screen flex justify-center items-center">
-              <div className="form-group">
-                <form
-                  className="grid grid-cols-1 gap-y-6"
-                  onSubmit={handleSubmit}
-                >
-                  {error ? <p>{error}</p> : null}
-                  <FormField name="email" type="email" label="E-mail" />
-                  <FormField name="password" type="password" label="Password" />
-                  <Button type="submit" disabled={!isValid || isSubmitting}>
-                    Sign in
-                  </Button>
-                </form>
-              </div>
+          <div className="b py-16 bg-gray-50 px-4 sm:px-6 h-screen w-screen flex justify-center items-center">
+            <div className="form-group">
+              <form
+                className="grid grid-cols-1 gap-y-6"
+                onSubmit={handleSubmit}
+              >
+                {error ? <p>{error}</p> : null}
+                <FormField name="email" type="email" label="E-mail" />
+                <FormField name="password" type="password" label="Password" />
+                <Button type="submit" disabled={!isValid || isSubmitting}>
+                  Sign in
+                </Button>
+              </form>
             </div>
           </div>
         )

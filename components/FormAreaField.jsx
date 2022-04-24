@@ -1,7 +1,7 @@
 import { Field } from "formik"
 import TextArea from "./TextArea"
 
-const FormField = (props) => {
+const FormAreaField = (props) => {
   const { as: Component = TextArea, name, label, ...otherProps } = props
 
   return (
@@ -19,4 +19,4 @@ const FormField = (props) => {
   )
 }
 
-export default FormField
+export default FormAreaField
