@@ -72,7 +72,9 @@ const CommentForm = () => {
                 onSubmit={handleSubmit}
               >
                 {error ? <p>{error}</p> : null}
-                <FormAreaField name="content" type="text" />
+                <div className="input-box">
+                  <FormAreaField name="content" type="text" />
+                </div>
                 <Button type="submit" disabled={!isValid || isSubmitting}>
                   Create
                 </Button>

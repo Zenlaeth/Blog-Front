@@ -29,11 +29,6 @@ const Comments = () => {
                 await makeClient().delete("/comments/" + comment.id)
                 router.reload(window.location.pathname)
               }
-              // const [errU, user] = useApi(
-              //   [null, {}],
-              //   "get",
-              //   "/users/" + comment.user_id
-              // )
 
               return (
                 <div key={comment.id}>

@@ -1,5 +1,6 @@
 import { Formik } from "formik"
 import Button from "./Button"
+import WButton from "./WButton"
 import * as yup from "yup"
 import { useCallback, useState, useContext } from "react"
 import FormField from "./FormField"
@@ -76,26 +77,39 @@ const EditProfileForm = () => {
       {({ handleSubmit, isValid, isSubmitting, errors }) =>
         // eslint-disable-next-line no-console
         console.error(errors) || (
-          <div>
-            <div className="b py-16 bg-gray-50 px-4 sm:px-6 h-screen w-screen flex justify-center items-center">
-              <div className="form-group">
-                <form
-                  className="grid grid-cols-1 gap-y-6"
-                  onSubmit={handleSubmit}
-                >
-                  {error ? <p>{error}</p> : null}
-                  <FormField name="email" type="email" label="E-mail" />
-                  <FormField name="firstName" type="text" label="First name" />
-                  <FormField name="lastName" type="text" label="Last name" />
-                  <FormField name="password" type="password" label="Password" />
-                  <Button type="submit" disabled={!isValid || isSubmitting}>
-                    Edit profile
-                  </Button>
-                  <Button onClick={deleteAccount}>Delete</Button>
-                </form>
+            <div className="form-container">
+              <div className="edit-form p-5">
+                <h2 className="card-title"><b>Edit profile</b></h2>
+                <div className="form-group">
+                  <form
+                    className="grid grid-cols-1 gap-y-6"
+                    onSubmit={handleSubmit}
+                  >
+                    {error ? <p>{error}</p> : null}
+                    <div className="input-box">
+                      <h4 className="details">Email</h4>
+                      <FormField name="email" type="email" />
+                    </div>
+                    <div className="input-box">
+                      <h4 className="details">First name</h4>
+                      <FormField name="firstName" type="text" />
+                    </div>
+                    <div className="input-box">
+                      <h4 className="details">Last name</h4>
+                      <FormField name="lastName" type="text" />
+                    </div>
+                    <div className="input-box">
+                      <h4 className="details">Password</h4>
+                      <FormField name="password" type="password" />
+                    </div>      
+                    <Button type="submit" disabled={!isValid || isSubmitting}>
+                      Edit profile
+                    </Button>
+                    <WButton onClick={deleteAccount}>Delete profile</WButton>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
         )
       }
     </Formik>

@@ -8,15 +8,15 @@ const Posts = () => {
   const [errU] = useApi([null, {}], "get", "/users")
 
   return (
-    <div className="posts">
+    <div className="container">
       {/* {err ? <p>{posts.error}</p> : } */}
       {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
-      {errU ? <p>Veuillez vous connecter</p> : <p>Vous êtes bien connecté</p>}
+      {/* {errU ? <p>Veuillez vous connecter</p> : <p>Vous êtes bien connecté</p>} */}
       {posts
         ? Array.from(posts).map((post) => {
             // const [errU, user] = useApi([null, {}], "get", "/users/" + post.user_id)
             return (
-              <div key={post.id}>
+              <div className="post-item" key={post.id}>
                 <h1>
                   <Link
                     className="nav-item"

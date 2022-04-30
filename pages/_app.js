@@ -4,10 +4,12 @@ import "bootswatch/dist/cosmo/bootstrap.min.css"
 
 const App = ({ Component, pageProps, ...otherProps }) => {
   return (
-    <AppContextProvider>
-      {/* <Routes /> */}
-      <Component {...pageProps} {...otherProps} />
-    </AppContextProvider>
+    <div>
+      <AppContextProvider>
+        {/* <Routes /> */}
+        <Component {...pageProps} {...otherProps} />
+      </AppContextProvider>
+    </div>
   )
 }
 

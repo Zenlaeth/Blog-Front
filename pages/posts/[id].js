@@ -7,12 +7,15 @@ import useApi from "@@/components/useApi"
 
 const Post = () => {
   const [errU] = useApi([null, {}], "get", "/users")
+  
   return (
     <div>
       <Navbar />
-      <PostDetails />
-      {errU ? <p>Log in to comment</p> : <CommentForm />}
-      <Comments />
+      <div className="container">
+        <PostDetails />
+        {errU ? <p>Log in to comment</p> : <CommentForm />}
+        <Comments />
+      </div>
     </div>
   )
 }

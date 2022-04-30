@@ -5,7 +5,6 @@ const Register = () => {
   return (
     <div>
       <Navbar />
-      <h1>Registration</h1>
       <RegisterForm />
     </div>
   )

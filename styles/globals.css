@@ -1,14 +1,68 @@
-html,
-body,
 #__next {
   @apply min-h-full;
 }
 
-.posts {
-  text-decoration-color: black;
-  align-content: flex-start;
-  text-align: center;
-  margin: auto;
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+.form-container {
+  /* background: yellowgreen; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.container {
+  /* background: yellowgreen; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* align-items: center; */
+  flex-grow: 1;
+}
+
+/* posts */
+
+.post-item {
+  padding: 10px;
+}
+
+.comment-form {
+  padding: 10px;
+}
+
+.comment-all {
+  padding: 10px;
+}
+
+.post-details {
+  padding: 10px;
+}
+
+/* forms */
+
+.form-group .input-box {
+  margin: 20px 0 20px 0;
+}
+
+.form-group .checkbox {
+  margin: 20px 0 20px 0;
+}
+
+.input-box .form-input {
+  width: 500px;
+  border-width: 1px !important;
+}
+
+.edit-form .btn-danger {
+  margin-left: 10px;
 }
 
 .post {

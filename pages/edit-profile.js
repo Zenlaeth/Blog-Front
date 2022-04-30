@@ -5,7 +5,6 @@ const EditProfile = () => {
   return (
     <div>
       <Navbar />
-      <h1>Edit profile</h1>
       <EditProfileForm />
     </div>
   )

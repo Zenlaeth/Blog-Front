@@ -4,7 +4,7 @@ import Moment from "react-moment"
 import Link from "next/link"
 import { makeClient } from "../src/services/makeClient"
 import { AppContext } from "./AppContext"
-import { useCallback, useState, useContext } from "react"
+import { useContext } from "react"
 import Button from "./Button"
 
 const PostDetails = () => {

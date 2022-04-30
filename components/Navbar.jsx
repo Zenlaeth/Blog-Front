@@ -4,6 +4,7 @@ import { AppContext } from "./AppContext"
 import Button from "./Button"
 import useApi from "@@/components/useApi"
 
+
 const Navbar = () => {
   const { logout, idUserLogged } = useContext(AppContext)
   const [errU, user] = useApi([null, {}], "get", "/users/" + idUserLogged)
