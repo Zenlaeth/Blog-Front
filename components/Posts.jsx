@@ -9,11 +9,8 @@ const Posts = () => {
 
   return (
     <div className="container">
-      {/* {err ? <p>{posts.error}</p> : } */}
-      {/* <pre>{JSON.stringify(posts, null, 2)}</pre> */}
-      {/* {errU ? <p>Veuillez vous connecter</p> : <p>Vous êtes bien connecté</p>} */}
       {posts
-        ? Array.from(posts).map((post) => {
+        ? Array.from(posts).filter((post) => post.isPublished == 1).map((post) => {
             // const [errU, user] = useApi([null, {}], "get", "/users/" + post.user_id)
             return (
               <div className="post-item" key={post.id}>
@@ -28,7 +25,6 @@ const Posts = () => {
                 </h1>
                 <p>
                   <small>
-                    {/* By John Doe, on{" "} */}
                     <Moment format="DD/MM/YYYY HH:mm">{post.createdAt}</Moment>
                   </small>
                 </p>

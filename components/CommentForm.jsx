@@ -17,9 +17,9 @@ const validationSchema = yup.object().shape({
 })
 
 const CommentForm = () => {
-  const { idUserLogged } = useContext(AppContext)
   const router = useRouter()
   const postId = router.query.id
+  const { idUserLogged } = useContext(AppContext)
   const [errU, user] = useApi([null, {}], "get", "/users/" + idUserLogged)
   const [error, setError] = useState()
 

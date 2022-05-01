@@ -1,35 +1,41 @@
-import { Formik } from "formik"
+import { Field, Formik } from "formik"
 import Button from "./Button"
 import * as yup from "yup"
-import { useCallback, useState, useContext } from "react"
+import { useCallback, useState } from "react"
 import FormField from "./FormField"
 import { makeClient } from "../src/services/makeClient"
 import { useRouter } from "next/router"
-
-const initialValues = {
-  title: "",
-  content: "",
-}
+import useApi from "@@/components/useApi"
 
 const validationSchema = yup.object().shape({
   title: yup.string().max(40).required().label("title"),
   content: yup.string().max(1000).required().label("content"),
 })
 
+const initialValues = {
+  title: "",
+  content: "",
+  isPublished: true,
+}
+
 const PostEditForm = () => {
   const router = useRouter()
-  const urlPost = "/posts/" + router.query.id
+  const postId = router.query.id
+  const urlPost = "/posts/edit/" + postId
+  const [errP, post] = useApi([null, {}], "get", "/posts/" + postId)
   const [error, setError] = useState()
-  const handleFormSubmit = useCallback(async ({ title, content }) => {
+
+  const handleFormSubmit = useCallback(async ({ title, content, isPublished }) => {
     setError(null)
 
     try {
       await makeClient().put(urlPost, {
         title,
         content,
+        isPublished
       })
 
-      router.push(urlPost)
+      router.push("/posts/" + router.query.id)
     } catch (err) {
       const { response: { data } = {} } = err
 
@@ -53,25 +59,37 @@ const PostEditForm = () => {
         // eslint-disable-next-line no-console
         console.error(errors) || (
           <div>
-            <div className="b py-16 bg-gray-50 px-4 sm:px-6 h-screen w-screen flex justify-center items-center">
-              <div className="form-group">
-                <form
-                  className="grid grid-cols-1 gap-y-6"
-                  onSubmit={handleSubmit}
-                >
-                  {error ? <p>{error}</p> : null}
-                  <FormField name="title" type="text" label="Title" />
-                  <FormField name="content" type="text" label="Content" />
-                  {/* <Form.Check
-                    disabled
-                    type={type}
-                    label={`disabled ${type}`}
-                    id={`disabled-default-${type}`}
-                  /> */}
-                  <Button type="submit" disabled={!isValid || isSubmitting}>
-                    Update
-                  </Button>
-                </form>
+            <div className="form-container">
+              <div className="edit-form p-5">
+                <h2 className="card-title"><b>Edit the post</b></h2>
+                <div className="form-group">
+                  <form
+                    onSubmit={handleSubmit}
+                  >
+                    {error ? <p>{error}</p> : null}
+                    <div className="input-box">
+                      <h4 className="details">Title</h4>
+                      <FormField name="title" type="text"/>
+                    </div>
+                    <div className="input-box">
+                      <h4 className="details">Content</h4>
+                      <FormField name="content" type="text" />
+                    </div>
+                    <div className="checkbox">
+                      <Field
+                        name="isPublished"
+                        type="checkbox"
+                        label="Publish"
+                      />
+                      <label className="form-check-label px-2">
+                        Publish the post
+                      </label>
+                    </div>
+                    <Button type="submit" disabled={!isValid || isSubmitting}>
+                      Update
+                    </Button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

@@ -42,8 +42,14 @@ body {
   padding: 10px;
 }
 
+/* post */
+
 .post-details {
   padding: 10px;
+}
+
+.edit-post {
+  padding-bottom: 20px;
 }
 
 /* forms */
@@ -57,11 +63,11 @@ body {
 }
 
 .input-box .form-input {
-  width: 500px;
+  width: 700px;
   border-width: 1px !important;
 }
 
-.edit-form .btn-danger {
+.btn-danger {
   margin-left: 10px;
 }
 

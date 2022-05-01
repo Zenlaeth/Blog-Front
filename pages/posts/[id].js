@@ -13,7 +13,7 @@ const Post = () => {
       <Navbar />
       <div className="container">
         <PostDetails />
-        {errU ? <p>Log in to comment</p> : <CommentForm />}
+        {errU ? <h5 className="p-2"><b>Log in to comment</b></h5> : <CommentForm />}
         <Comments />
       </div>
     </div>

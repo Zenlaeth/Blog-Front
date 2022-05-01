@@ -6,6 +6,7 @@ import { makeClient } from "../src/services/makeClient"
 import { AppContext } from "./AppContext"
 import { useContext } from "react"
 import Button from "./Button"
+import WButton from "./WButton"
 
 const PostDetails = () => {
   const router = useRouter()
@@ -33,12 +34,12 @@ const PostDetails = () => {
         </small>
       </p>
       {idUserLogged == post.user_id ? (
-        <h3>
+        <div className="edit-post">
           <Link href={`/posts/edit/` + post.id} key={post.id}>
-            <a>Edit post</a>
+            <Button href={`/posts/edit/` + post.id}>Edit post</Button>
           </Link>
-          <Button onClick={deletePost}>Delete</Button>
-        </h3>
+          <WButton onClick={deletePost}>Delete</WButton>
+        </div>
       ) : null}
       <p>{post.content}</p>
     </div>
