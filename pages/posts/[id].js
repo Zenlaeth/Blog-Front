@@ -11,7 +11,6 @@ const Post = () => {
   const router = useRouter()
   const postId = router.query.id
   const [errP, post] = useApi([null, {}], "get", "/posts/" + postId)
-  console.log(errP)
 
   return (
     <div>

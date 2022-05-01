@@ -9,6 +9,8 @@ const Navbar = () => {
   const { logout, idUserLogged } = useContext(AppContext)
   const [errU, user] = useApi([null, {}], "get", "/users/" + idUserLogged)
 
+  const isAdmin =  user.role_id == 3 ? true : false
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -38,7 +40,7 @@ const Navbar = () => {
               </Link>
               {idUserLogged ? (
                 <>
-                  {user.role_id == 2 ? (
+                  {user.role_id == 2 || isAdmin ? (
                     <>
                       <Link className="nav-item" href="/newPost">
                         <a className="nav-link">New post</a>

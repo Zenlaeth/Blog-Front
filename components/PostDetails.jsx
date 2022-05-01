@@ -14,10 +14,14 @@ const PostDetails = () => {
   const { idUserLogged } = useContext(AppContext)
   const [errP, post] = useApi([null, {}], "get", "/posts/" + postId)
   const [errU, user] = useApi([null, {}], "get", "public/users/" + post.user_id)
+  const [errUC, userC] = useApi([null, {}], "get", "/users/" + idUserLogged)
+
   const deletePost = async () => {
     await makeClient().delete("/posts/" + postId)
     router.push("/")
   }
+
+  const isAdmin =  userC.role_id == 3 ? true : false
 
   return (
     <div className="post-details">
@@ -33,7 +37,7 @@ const PostDetails = () => {
           , on <Moment format="DD/MM/YYYY HH:mm">{post.createdAt}</Moment>
         </small>
       </p>
-      {idUserLogged == post.user_id ? (
+      {idUserLogged == post.user_id || isAdmin ? (
         <div className="edit-post">
           <Link href={`/posts/edit/` + post.id} key={post.id}>
             <Button href={`/posts/edit/` + post.id}>Edit post</Button>

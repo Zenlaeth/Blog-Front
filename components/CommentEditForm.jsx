@@ -52,7 +52,7 @@ const CommentEditForm = () => {
         console.error(errors) || (
           <div className="form-container">
             <div className="login-form p-5">
-              <h2 className="card-title"><b>Edit your comment</b></h2>
+              <h2 className="card-title"><b>Edit the comment</b></h2>
               <div className="form-group">
                 <form
                   onSubmit={handleSubmit}

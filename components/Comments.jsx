@@ -14,11 +14,9 @@ const Comments = () => {
   const [errC, comments] = useApi([null, {}], "get", "/comments")
   const [errP, post] = useApi([null, {}], "get", "/posts/" + postId)
   const { idUserLogged } = useContext(AppContext)
-  // const [errU, user] = useApi(
-  //   [null, {}],
-  //   "get",
-  //   "/users/" + comment.user_id
-  // )
+  const [errU, user] = useApi([null, {}], "get", "/users/" + idUserLogged)
+
+  const isAdmin =  user.role_id == 3 ? true : false
 
   return (
     <div className="comment-all">
@@ -41,13 +39,13 @@ const Comments = () => {
                       </Moment>
                     </b>
                   </h4>
-                  {idUserLogged == comment.user_id ? (
+                  {idUserLogged == comment.user_id || isAdmin ? (
                     <Link href={`/comments/edit/` + comment.id} key={post.id}>
                       <Button>Edit comment</Button>
                     </Link>
                   ) : null}
                   {idUserLogged == comment.user_id ||
-                  idUserLogged == post.user_id ? (
+                  idUserLogged == post.user_id || isAdmin ? (
                     <WButton onClick={deleteComment}>Delete</WButton>
                   ) : null}
                   <p>{comment.content}</p>

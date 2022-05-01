@@ -13,10 +13,12 @@ const Edit = () => {
   const postId = router.query.id
   const [errC, post] = useApi([null, {}], "get", "/posts/" + postId)
 
+  const isAdmin =  user.role_id == 3 ? true : false
+
   return (
     <>
       <Navbar />
-      {idUserLogged == post.user_id ? (
+      {idUserLogged == post.user_id || isAdmin ? (
         <PostEditForm />
       ) : <NotAllowed />}
     </>

@@ -73,7 +73,7 @@ const PostForm = () => {
                     <FormField name="title" type="text"/>
                   </div>
                   <div className="input-box">
-                    <h4 className="details">Title</h4>
+                    <h4 className="details">Content</h4>
                     <FormField name="content" type="text"/>
                   </div>
                   <div className="checkbox">

@@ -8,13 +8,14 @@ import useApi from "@@/components/useApi"
 const newPost = () => {
   const { idUserLogged } = useContext(AppContext)
   const [errU, user] = useApi([null, {}], "get", "/users/" + idUserLogged)
+  const isAdmin =  user.role_id == 3 ? true : false
 
   return (
     <>
       <Navbar />
       {idUserLogged ? (
         <>
-          {user.role_id == 2 ? (
+          {user.role_id == 2 || isAdmin ? (
             <PostForm />
             ) : <NotAllowed />}
         </>

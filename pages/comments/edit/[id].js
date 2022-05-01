@@ -12,11 +12,12 @@ const Edit = () => {
   const router = useRouter()
   const commentId = router.query.id
   const [errC, comment] = useApi([null, {}], "get", "/comments/" + commentId)
-
+  const isAdmin =  user.role_id == 3 ? true : false
+  
   return (
     <>
       <Navbar />
-      {idUserLogged == comment.user_id ? (
+      {idUserLogged == comment.user_id || isAdmin ? (
         <CommentEditForm />
       ) : <NotAllowed />}
     </>
