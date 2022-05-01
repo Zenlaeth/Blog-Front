@@ -43,7 +43,8 @@ const CommentForm = () => {
 
       setError("Oops, something went wrong.")
     }
-    // router.reload(window.location.pathname)
+
+    router.reload(window.location.pathname)
   }, [])
 
   return (
@@ -68,7 +69,6 @@ const CommentForm = () => {
           console.error(errors) || (
             <div className="form-group">
               <form
-                className="grid grid-cols-1 gap-y-6"
                 onSubmit={handleSubmit}
               >
                 {error ? <p>{error}</p> : null}

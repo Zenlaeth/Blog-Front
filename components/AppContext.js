@@ -1,19 +1,12 @@
 import { createContext, useCallback, useState } from "react"
-import useApi from "../components/useApi"
 
 const initialJWT =
   typeof window === "undefined" ? null : localStorage.getItem("session_jwt")
-
-// const idUser =
-//   typeof window === "undefined"
-//     ? null
-//     : localStorage.getItem("id_user_connected")
 
 export const AppContext = createContext(null)
 
 export const AppContextProvider = (props) => {
   const [jwt, setJWT] = useState(initialJWT)
-  // const [user, setUser] = useState(idUser)
 
   const login = useCallback((jwt, user) => {
     localStorage.setItem("session_jwt", jwt)

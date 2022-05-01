@@ -1,6 +1,7 @@
 import useApi from "../components/useApi"
 import Moment from "react-moment"
 import { useRouter } from "next/router"
+import WButton from "./WButton"
 import Button from "./Button"
 import { makeClient } from "../src/services/makeClient"
 import { AppContext } from "./AppContext"
@@ -31,24 +32,24 @@ const Comments = () => {
               }
 
               return (
-                <div key={comment.id}>
+                <div className="comment" key={comment.id}>
                   <h4>
                     <b>
-                      commented on{" "}
+                      Anonymous commented on{" "}
                       <Moment format="DD/MM/YYYY HH:mm">
                         {comment.createdAt}
                       </Moment>
                     </b>
-                    {idUserLogged == comment.user_id ||
-                    idUserLogged == post.user_id ? (
-                      <Button onClick={deleteComment}>Delete</Button>
-                    ) : null}
-                    {idUserLogged == comment.user_id ? (
-                      <Link href={`/comments/edit/` + comment.id} key={post.id}>
-                        <a>Edit post</a>
-                      </Link>
-                    ) : null}
                   </h4>
+                  {idUserLogged == comment.user_id ? (
+                    <Link href={`/comments/edit/` + comment.id} key={post.id}>
+                      <Button>Edit comment</Button>
+                    </Link>
+                  ) : null}
+                  {idUserLogged == comment.user_id ||
+                  idUserLogged == post.user_id ? (
+                    <WButton onClick={deleteComment}>Delete</WButton>
+                  ) : null}
                   <p>{comment.content}</p>
                 </div>
               )

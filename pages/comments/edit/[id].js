@@ -1,5 +1,5 @@
 import Navbar from "@@/components/Navbar"
-import PostEditForm from "@@/components/PostEditForm"
+import CommentEditForm from "@@/components/CommentEditForm"
 import NotAllowed from "@@/components/NotAllowed"
 import { useContext } from "react"
 import { AppContext } from "@@/components/AppContext"
@@ -10,14 +10,14 @@ const Edit = () => {
   const { idUserLogged } = useContext(AppContext)
   const [errU, user] = useApi([null, {}], "get", "/users/" + idUserLogged)
   const router = useRouter()
-  const postId = router.query.id
-  const [errC, post] = useApi([null, {}], "get", "/posts/" + postId)
+  const commentId = router.query.id
+  const [errC, comment] = useApi([null, {}], "get", "/comments/" + commentId)
 
   return (
     <>
       <Navbar />
-      {idUserLogged == post.user_id ? (
-        <PostEditForm />
+      {idUserLogged == comment.user_id ? (
+        <CommentEditForm />
       ) : <NotAllowed />}
     </>
   )

@@ -5,7 +5,6 @@ import { useCallback, useState } from "react"
 import FormField from "./FormField"
 import { makeClient } from "../src/services/makeClient"
 import { useRouter } from "next/router"
-import useApi from "@@/components/useApi"
 
 const validationSchema = yup.object().shape({
   title: yup.string().max(40).required().label("title"),
@@ -22,7 +21,6 @@ const PostEditForm = () => {
   const router = useRouter()
   const postId = router.query.id
   const urlPost = "/posts/edit/" + postId
-  const [errP, post] = useApi([null, {}], "get", "/posts/" + postId)
   const [error, setError] = useState()
 
   const handleFormSubmit = useCallback(async ({ title, content, isPublished }) => {

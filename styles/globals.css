@@ -71,11 +71,12 @@ body {
   margin-left: 10px;
 }
 
-.post {
-  text-decoration-color: black;
-  align-content: flex-start;
+/* comments */
+
+.comment {
+  padding-bottom: 10px;
 }
 
-.post .h1 .a {
-  text-decoration: none;
+.comment .btn {
+  font-size: 15px;
 }
